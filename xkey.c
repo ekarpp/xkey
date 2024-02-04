@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/XF86keysym.h>
 
 #define	LEN(X)  (sizeof(X) / sizeof((X)[0]))
 #define MASK(M) (M & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
