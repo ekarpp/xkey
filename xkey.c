@@ -63,6 +63,7 @@ void run(void) {
 		XNextEvent(dpy, &e);
 		for (size_t i = 0; i < LEN(binds); i++)
 			if (XKeysymToKeycode(dpy, binds[i].sym) == e.xkey.keycode
+				&& e.xkey.type == KeyPress
 				&& MASK(binds[i].mod) == MASK(e.xkey.state))
 					spawn(binds[i].cmd);
 	}
