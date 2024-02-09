@@ -1,0 +1,19 @@
+#!/bin/bash
+BACKLIGHT_FOLDER=/sys/class/backlight/intel_backlight
+MAX=$(cat ${BACKLIGHT_FOLDER}/max_brightness | tr -d "\n")
+CURRENT=$(cat ${BACKLIGHT_FOLDER}/brightness | tr -d "\n")
+
+INCREMENT=$(awk "BEGIN { printf \"%d\", ${MAX} * 0.05 }")
+MIN=$INCREMENT
+
+if [[ "$1" == "up" ]]; then
+	if [ $CURRENT -lt $MAX ]; then
+		NEW=$(($CURRENT + $INCREMENT))
+		[ $NEW -gt $MAX ] && echo $MAX || echo $NEW > ${BACKLIGHT_FOLDER}/brightness
+	fi
+else
+	if [ $CURRENT -gt $MIN ]; then
+		NEW=$(($CURRENT - $INCREMENT))
+		[ $NEW -lt $MIN ] && echo $MIN || echo $NEW > ${BACKLIGHT_FOLDER}/brightness
+	fi
+fi

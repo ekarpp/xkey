@@ -35,10 +35,11 @@ install: all
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	cp -f ${MAN} ${DESTDIR}${MANPREFIX}/man1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/${MAN}
+	for script in bin/*; do cp -f $$script ${DESTDIR}${PREFIX}/bin; chmod 755 ${DESTDIR}${PREFIX}/$$script; done
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/${BIN}
 	rm -f ${DESTDIR}${MANPREFIX}/man1/${MAN}
+	for script in bin/*; do rm -f ${DESTDIR}${PREFIX}/$$script; done
 
 .PHONY: all clean dist install uninstall
-
